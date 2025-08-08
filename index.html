@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress-to-Water Irrigation System - Funny Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #8B4513 60%, #8B4513 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c5f2d;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(255,255,255,0.7), 0 0 10px #4CAF50; }
+            to { text-shadow: 2px 2px 4px rgba(255,255,255,0.7), 0 0 20px #4CAF50, 0 0 30px #4CAF50; }
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            max-width: 700px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .instructions h2 {
+            color: #2c5f2d;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .instructions li:before {
+            content: "💧";
+            position: absolute;
+            left: 0;
+        }
+        
+        .game-area {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .farmer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 10px;
+            position: relative;
+        }
+        
+        .farmer {
+            width: 150px;
+            height: 200px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .farmer-head {
+            width: 100px;
+            height: 100px;
+            background: #ffcc99;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            border: 3px solid #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .farmer-eye {
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px;
+            transition: all 0.3s ease;
+        }
+        
+        .farmer-eye.left { left: 25px; }
+        .farmer-eye.right { right: 25px; }
+        
+        .farmer-eye.blink {
+            height: 2px;
+            top: 45px;
+        }
+        
+        .farmer-mouth {
+            width: 50px;
+            height: 25px;
+            border-bottom: 4px solid #333;
+            border-radius: 0 0 25px 25px;
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            transition: all 0.5s ease;
+        }
+        
+        .farmer-mouth.happy {
+            border-radius: 25px 25px 0 0;
+            border-bottom: none;
+            border-top: 4px solid #333;
+            bottom: 35px;
+        }
+        
+        .farmer-mouth.sad {
+            border-radius: 25px 25px 0 0;
+            border-bottom: none;
+            border-top: 4px solid #333;
+            transform: rotate(180deg);
+            bottom: 20px;
+        }
+        
+        .farmer-body {
+            width: 80px;
+            height: 90px;
+            background: linear-gradient(to bottom, #4169E1, #1E90FF);
+            margin: 0 auto;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            top: -15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .farmer-hat {
+            width: 110px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: -5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .farmer-basket {
+            width: 60px;
+            height: 40px;
+            background: #8B4513;
+            border-radius: 0 0 30px 30px;
+            position: absolute;
+            bottom: -20px;
+            left: 10px;
+            border: 2px solid #5D4037;
+            display: none;
+            z-index: 5;
+        }
+        
+        .rice-grain {
+            position: absolute;
+            width: 8px;
+            height: 15px;
+            background: #F5DEB3;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform: rotate(45deg);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .stress-meter {
+            width: 180px;
+            height: 25px;
+            background: #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #333;
+            margin-top: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .stress-level {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #FFEB3B, #FF5722);
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 87, 34, 0.7);
+        }
+        
+        .motor-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+        
+        .motor {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #757575, #424242);
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .motor-blades {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            animation: rotate 2s linear infinite;
+            animation-play-state: paused;
+        }
+        
+        .blade {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            background: linear-gradient(to right, #333, #555);
+            top: 40px;
+            left: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .blade:nth-child(2) {
+            transform: rotate(90deg);
+        }
+        
+        .blade:nth-child(3) {
+            transform: rotate(45deg);
+        }
+        
+        .blade:nth-child(4) {
+            transform: rotate(135deg);
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .motor-speed {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .water-system {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+        
+        .water-tank {
+            width: 100px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 4px solid #333;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, #1E90FF, #87CEFA, #B0E0E6);
+            height: 0%;
+            transition: height 0.5s ease;
+            box-shadow: inset 0 0 20px rgba(30, 144, 255, 0.5);
+        }
+        
+        .water-percentage {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .pipe {
+            width: 200px;
+            height: 25px;
+            background: linear-gradient(to right, #757575, #9E9E9E, #757575);
+            position: relative;
+            margin-top: -15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        
+        .water-flow {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #1E90FF, #87CEFA);
+            border-radius: 50%;
+            top: 2.5px;
+            left: -20px;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+        }
+        
+        .paddy-field {
+            width: 100%;
+            max-width: 900px;
+            height: 180px;
+            background: linear-gradient(to bottom, #8B4513, #A0522D);
+            border-radius: 15px;
+            position: relative;
+            margin-top: 30px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border: 3px solid #5D4037;
+        }
+        
+        .water-coverage {
+            position: absolute;
+            bottom: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(30, 144, 255, 0.8), rgba(135, 206, 250, 0.6), rgba(176, 224, 230, 0.4));
+            transition: width 0.5s ease;
+            box-shadow: inset 0 0 30px rgba(30, 144, 255, 0.5);
+        }
+        
+        .paddy-plant {
+            position: absolute;
+            bottom: 30px;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(to top, #2E8B57, #3CB371);
+            border-radius: 10px 10px 0 0;
+            transform-origin: bottom center;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .paddy-plant::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #3CB371, #2E8B57);
+            border-radius: 50%;
+            top: -15px;
+            left: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .paddy-plant::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #3CB371, #2E8B57);
+            border-radius: 50%;
+            top: -10px;
+            right: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .paddy-plant.mature {
+            background: linear-gradient(to top, #228B22, #32CD32);
+            height: 80px;
+        }
+        
+        .paddy-plant.mature::before,
+        .paddy-plant.mature::after {
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        
+        .paddy-plant.harvested {
+            height: 30px;
+            background: linear-gradient(to top, #8B7355, #A0826D);
+        }
+        
+        .paddy-plant.harvested::before,
+        .paddy-plant.harvested::after {
+            display: none;
+        }
+        
+        /* Crop variety styles */
+        .paddy-plant.corn {
+            background: linear-gradient(to top, #9ACD32, #7CFC00);
+        }
+        
+        .paddy-plant.corn::before,
+        .paddy-plant.corn::after {
+            background: radial-gradient(circle, #FFD700, #FFA500);
+        }
+        
+        .paddy-plant.corn.mature {
+            height: 100px;
+        }
+        
+        .paddy-plant.corn.mature::before,
+        .paddy-plant.corn.mature::after {
+            background: radial-gradient(circle, #FF8C00, #FF4500);
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+        }
+        
+        .paddy-plant.wheat {
+            background: linear-gradient(to top, #DAA520, #F0E68C);
+        }
+        
+        .paddy-plant.wheat::before,
+        .paddy-plant.wheat::after {
+            background: radial-gradient(circle, #FFD700, #FFA500);
+        }
+        
+        .paddy-plant.wheat.mature {
+            height: 90px;
+        }
+        
+        .paddy-plant.wheat.mature::before,
+        .paddy-plant.wheat.mature::after {
+            background: radial-gradient(circle, #FFD700, #FFF8DC);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stress-button {
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stress-button:hover {
+            background: linear-gradient(135deg, #66BB6A, #43A047);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        .stress-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        
+        .harvest-button {
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .harvest-button:hover {
+            background: linear-gradient(135deg, #FFB74D, #FB8C00);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        .reset-button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .reset-button:hover {
+            background: linear-gradient(135deg, #BA68C8, #8E24AA);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .status-message {
+            margin-top: 25px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            font-weight: bold;
+            color: #333;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(56, 142, 60, 0.9));
+            color: white;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+        }
+        
+        .harvest-message {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.9), rgba(245, 124, 0, 0.9));
+            color: white;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 150px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c5f2d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            position: relative;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #333;
+            font-size: 1rem;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            max-width: 800px;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #FF69B4;
+            animation: float-up 3s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .rice-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #FFD700;
+            animation: float-up 3s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .stress-emoji {
+            position: absolute;
+            font-size: 3rem;
+            animation: bounce 1s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .stress-comment {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            z-index: 10;
+            max-width: 250px;
+            text-align: center;
+        }
+        
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(1.2);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .growth-indicator {
+            width: 100%;
+            max-width: 800px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid #4CAF50;
+        }
+        
+        .growth-progress {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #8BC34A, #CDDC39, #FFEB3B, #FFC107, #FF9800);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            animation: achievement-appear 0.5s ease-out;
+            display: none;
+        }
+        
+        @keyframes achievement-appear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .high-score {
+            color: #FF5722;
+            font-weight: bold;
+        }
+        
+        /* Sound toggle */
+        .sound-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        /* Tutorial */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .tutorial-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .tutorial-content h2 {
+            color: #2c5f2d;
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .tutorial-button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* Crop Selection */
+        .crop-selection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        
+        .crop-selection-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .crop-selection-content h2 {
+            color: #2c5f2d;
+            margin-bottom: 20px;
+        }
+        
+        .crop-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .crop-option {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 180px;
+        }
+        
+        .crop-option:hover {
+            background: rgba(76, 175, 80, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .crop-option.selected {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #2E7D32;
+        }
+        
+        .crop-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .crop-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .crop-description {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .crop-select-button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .crop-select-button:hover {
+            background: #388E3C;
+        }
+        
+        .crop-select-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Birds */
+        .bird {
+            position: absolute;
+            top: 10%;
+            font-size: 2rem;
+            z-index: 5;
+            animation: fly 15s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes fly {
+            from { left: -10%; }
+            to { left: 110%; }
+        }
+        
+        .bird:nth-child(odd) {
+            animation-duration: 12s;
+            top: 15%;
+        }
+        
+        .bird:nth-child(even) {
+            animation-duration: 18s;
+            top: 5%;
+        }
+        
+        /* Soundtrack indicator */
+        .soundtrack-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        /* Pest System Styles */
+        .pest {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234CAF50"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            z-index: 10;
+            animation: pest-buzz 0.5s infinite alternate;
+            transition: transform 0.2s;
+        }
+        
+        .pest:hover {
+            transform: scale(1.2);
+        }
+        
+        .pest.damaged {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23F44336"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>');
+        }
+        
+        @keyframes pest-buzz {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        .pest-warning {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: pulse 1s infinite;
+        }
+        
+        .damage-effect {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(244, 67, 54, 0.8), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: damage-pulse 0.5s ease-out forwards;
+        }
+        
+        @keyframes damage-pulse {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        
+        /* Power-up styles */
+        .power-up {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 15;
+            animation: power-up-pulse 2s infinite;
+        }
+        
+        .power-up.speed-boost {
+            background: radial-gradient(circle, #FF5722, #FF9800);
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.7);
+        }
+        
+        .power-up.water-bonus {
+            background: radial-gradient(circle, #2196F3, #03A9F4);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.7);
+        }
+        
+        .power-up.pest-repellent {
+            background: radial-gradient(circle, #4CAF50, #8BC34A);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.7);
+        }
+        
+        @keyframes power-up-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .power-up-timer {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            z-index: 20;
+        }
+        
+        /* Mysterious Floating Text */
+        .mysterious-text {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            pointer-events: none;
+            z-index: 5;
+            animation: fade-in-out 4s forwards;
+        }
+        
+        @keyframes fade-in-out {
+            0% { opacity: 0; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+        
+        /* Color Bursts */
+        .color-burst {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: burst 1s forwards;
+        }
+        
+        @keyframes burst {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        
+        /* Flying Objects */
+        .flying-object {
+            position: absolute;
+            font-size: 2rem;
+            animation: fly 5s linear forwards;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        @keyframes fly {
+            to { transform: translateX(100vw); }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .game-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .paddy-field {
+                height: 150px;
+            }
+            
+            .stress-button, .harvest-button, .reset-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            
+            .stress-comment {
+                font-size: 0.9rem;
+                max-width: 200px;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .crop-option {
+                width: 150px;
+                padding: 15px;
+            }
+            
+            .crop-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-hearts" id="heartsContainer"></div>
+        
+        <!-- Sound Toggle -->
+        <button class="sound-toggle" id="soundToggle">🔊</button>
+        
+        <!-- Soundtrack Indicator -->
+        <div class="soundtrack-indicator" id="soundtrackIndicator">🎵 Watering Phase</div>
+        
+        <div class="header">
+            <h1>🌾 Stress-to-Water Irrigation System - Funny Edition! 🌾</h1>
+            <div class="instructions">
+                <h2>From Stress to Sustainable Harvest with Laughs!</h2>
+                <ul>
+                    <li>Click rapidly to generate stress energy and water the field</li>
+                    <li>Watch the farmer's hilarious reactions to your stress levels!</li>
+                    <li>Enjoy funny emojis and comments that change with your stress</li>
+                    <li>Harvest the mature crops to complete the cycle</li>
+                    <li>Watch out for pests during the growing phase!</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="totalClicks">0</div>
+                <div class="stat-label">Total Clicks</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="clickSpeed">0</div>
+                <div class="stat-label">Clicks/Sec</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="waterPumped">0</div>
+                <div class="stat-label">Water Pumped %</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="timeElapsed">0</div>
+                <div class="stat-label">Time (Sec)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value high-score" id="highScore">0</div>
+                <div class="stat-label">High Score</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="coins">0</div>
+                <div class="stat-label">Coins</div>
+            </div>
+        </div>
+        
+        <div class="growth-indicator">
+            <div class="growth-progress" id="growthProgress">0% - Growth Cycle</div>
+        </div>
+        
+        <div class="game-area">
+            <div class="farmer-section">
+                <div class="farmer">
+                    <div class="farmer-head">
+                        <div class="farmer-hat"></div>
+                        <div class="farmer-eye left" id="leftEye"></div>
+                        <div class="farmer-eye right" id="rightEye"></div>
+                        <div class="farmer-mouth" id="farmerMouth"></div>
+                    </div>
+                    <div class="farmer-body"></div>
+                    <div class="farmer-basket" id="farmerBasket"></div>
+                    <div class="stress-emoji" id="stressEmoji"></div>
+                    <div class="stress-comment" id="stressComment"></div>
+                </div>
+                <div class="stress-meter">
+                    <div class="stress-level" id="stressLevel"></div>
+                </div>
+                <div>Farmer Stress Level</div>
+            </div>
+            
+            <div class="motor-section">
+                <div class="motor">
+                    <div class="motor-blades" id="motorBlades">
+                        <div class="blade"></div>
+                        <div class="blade"></div>
+                        <div class="blade"></div>
+                        <div class="blade"></div>
+                    </div>
+                </div>
+                <div class="motor-speed" id="motorSpeed">Motor Speed: 0%</div>
+            </div>
+            
+            <div class="water-system">
+                <div class="water-tank">
+                    <div class="water-level" id="waterLevel"></div>
+                </div>
+                <div class="water-percentage" id="waterPercentage">Water: 0%</div>
+                <div class="pipe">
+                    <div class="water-flow" id="waterFlow"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="paddy-field">
+            <div class="water-coverage" id="waterCoverage"></div>
+            <!-- Paddy plants will be generated by JavaScript -->
+        </div>
+        
+        <div class="controls">
+            <button class="stress-button" id="stressButton">🚜 Click to Generate Stress! 🚜</button>
+            <button class="harvest-button" id="harvestButton">🌾 Harvest Crops! 🌾</button>
+            <button class="reset-button" id="resetButton">🔄 Play Again</button>
+            <div class="status-message" id="statusMessage">Click rapidly to power the water pump and irrigate the field!</div>
+        </div>
+        
+        <div class="footer">
+            <p>Experience the complete agricultural cycle with laughs! From stress energy to sustainable harvest, with hilarious farmer reactions! 🌱😂💚</p>
+        </div>
+        
+        <div class="achievement-popup" id="achievementPopup"></div>
+        
+        <!-- Crop Selection Overlay -->
+        <div class="crop-selection-overlay" id="cropSelectionOverlay">
+            <div class="crop-selection-content">
+                <h2>Choose Your Crop Type</h2>
+                <p>Each crop has unique properties that affect your farming strategy!</p>
+                <div class="crop-options">
+                    <div class="crop-option" data-crop="rice">
+                        <div class="crop-icon">🌾</div>
+                        <div class="crop-name">Rice</div>
+                        <div class="crop-description">Balanced growth and water needs</div>
+                    </div>
+                    <div class="crop-option" data-crop="corn">
+                        <div class="crop-icon">🌽</div>
+                        <div class="crop-name">Corn</div>
+                        <div class="crop-description">Faster growth but needs more water</div>
+                    </div>
+                    <div class="crop-option" data-crop="wheat">
+                        <div class="crop-icon">🌾</div>
+                        <div class="crop-name">Wheat</div>
+                        <div class="crop-description">Slower growth but more valuable</div>
+                    </div>
+                </div>
+                <button class="crop-select-button" id="cropSelectButton" disabled>Select Crop</button>
+            </div>
+        </div>
+        
+        <!-- Tutorial Overlay -->
+        <div class="tutorial-overlay" id="tutorialOverlay">
+            <div class="tutorial-content">
+                <h2>Welcome to Stress-to-Water Irrigation System!</h2>
+                <p>🚜 Click rapidly to generate stress energy that powers the water pump.</p>
+                <p>💧 Water your field to help crops grow through different stages.</p>
+                <p>🐛 Watch out for pests during the growing phase - click them to eliminate!</p>
+                <p>⚡ Collect power-ups for special abilities to help you succeed!</p>
+                <p>🌾 Harvest mature crops to complete the cycle and earn coins!</p>
+                <button class="tutorial-button" id="startTutorial">Start Playing!</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Game state
+        let stressLevel = 0;
+        let waterLevel = 0;
+        let motorSpeed = 0;
+        let growthStage = 0; // 0: watering, 1: growing, 2: mature, 3: harvested
+        let gameComplete = false;
+        let clickTimes = [];
+        let totalClicks = 0;
+        let gameStartTime = null;
+        let lastBlinkTime = 0;
+        let growthProgress = 0;
+        let harvestCount = 0;
+        let lastStressComment = "";
+        let highScore = localStorage.getItem('irrigationHighScore') || 0;
+        let coins = localStorage.getItem('irrigationCoins') || 0;
+        let soundEnabled = true;
+        let selectedCrop = null;
+        let cropProperties = {
+            rice: { growthRate: 1, waterNeed: 1, value: 1, color: 'green' },
+            corn: { growthRate: 1.5, waterNeed: 1.3, value: 1.2, color: 'yellow' },
+            wheat: { growthRate: 0.7, waterNeed: 0.8, value: 1.5, color: 'gold' }
+        };
+
+        // DOM Elements - will be initialized after DOM loads
+        let stressButton, harvestButton, resetButton, stressLevelBar, waterLevelBar, waterPercentage;
+        let motorBlades, motorSpeedDisplay, waterCoverage, statusMessage, totalClicksDisplay;
+        let clickSpeedDisplay, waterPumpedDisplay, timeElapsedDisplay, highScoreDisplay, coinsDisplay;
+        let growthProgressBar, leftEye, rightEye, farmerMouth, farmerBasket, stressEmoji, stressComment;
+        let achievementPopup, heartsContainer, soundToggle, tutorialOverlay, startTutorialButton, paddyField;
+        let paddyPlants = [];
+        let pests = [];
+        let powerUps = [];
+        let activePowerUps = {
+            speedBoost: 0,
+            waterBonus: 0,
+            pestRepellent: 0
+        };
+        let powerUpTimers = {};
+        let soundtrackIndicator, cropSelectionOverlay, cropSelectButton, cropOptions;
+
+        // Sound effects (using Web Audio API for simple sounds)
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(frequency, duration, type = 'sine') {
+            if (!soundEnabled) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = type;
+            oscillator.frequency.value = frequency;
+            gainNode.gain.value = 0.1;
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+
+        // Sound effects
+        const sounds = {
+            click: () => playSound(300, 0.1),
+            water: () => playSound(200, 0.3),
+            harvest: () => playSound(500, 0.5),
+            pest: () => playSound(100, 0.2, 'square'),
+            powerUp: () => playSound(600, 0.3),
+            achievement: () => playSound(800, 0.5)
+        };
+
+        // Background music for different phases
+        function playBackgroundMusic(phase) {
+            if (!soundEnabled) return;
+            
+            // Stop any existing background music
+            if (window.backgroundMusic) {
+                window.backgroundMusic.pause();
+            }
+            
+            // Create new audio context for background music
+            const audio = new Audio();
+            
+            // Different music for each phase (using placeholder URLs)
+            switch(phase) {
+                case 'watering':
+                    audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
+                    break;
+                case 'growing':
+                    audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
+                    break;
+                case 'mature':
+                    audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
+                    break;
+                case 'harvest':
+                    audio.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
+                    break;
+            }
+            
+            audio.loop = true;
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log("Audio play failed:", e));
+            window.backgroundMusic = audio;
+        }
+
+        // Initialize DOM elements and event listeners
+        function initializeGame() {
+            // Get DOM elements
+            stressButton = document.getElementById('stressButton');
+            harvestButton = document.getElementById('harvestButton');
+            resetButton = document.getElementById('resetButton');
+            stressLevelBar = document.getElementById('stressLevel');
+            waterLevelBar = document.getElementById('waterLevel');
+            waterPercentage = document.getElementById('waterPercentage');
+            motorBlades = document.getElementById('motorBlades');
+            motorSpeedDisplay = document.getElementById('motorSpeed');
+            waterCoverage = document.getElementById('waterCoverage');
+            statusMessage = document.getElementById('statusMessage');
+            totalClicksDisplay = document.getElementById('totalClicks');
+            clickSpeedDisplay = document.getElementById('clickSpeed');
+            waterPumpedDisplay = document.getElementById('waterPumped');
+            timeElapsedDisplay = document.getElementById('timeElapsed');
+            highScoreDisplay = document.getElementById('highScore');
+            coinsDisplay = document.getElementById('coins');
+            growthProgressBar = document.getElementById('growthProgress');
+            leftEye = document.getElementById('leftEye');
+            rightEye = document.getElementById('rightEye');
+            farmerMouth = document.getElementById('farmerMouth');
+            farmerBasket = document.getElementById('farmerBasket');
+            stressEmoji = document.getElementById('stressEmoji');
+            stressComment = document.getElementById('stressComment');
+            achievementPopup = document.getElementById('achievementPopup');
+            heartsContainer = document.getElementById('heartsContainer');
+            soundToggle = document.getElementById('soundToggle');
+            tutorialOverlay = document.getElementById('tutorialOverlay');
+            startTutorialButton = document.getElementById('startTutorial');
+            paddyField = document.querySelector('.paddy-field');
+            soundtrackIndicator = document.getElementById('soundtrackIndicator');
+            cropSelectionOverlay = document.getElementById('cropSelectionOverlay');
+            cropSelectButton = document.getElementById('cropSelectButton');
+            cropOptions = document.querySelectorAll('.crop-option');
+
+            // Initialize displays
+            highScoreDisplay.textContent = highScore;
+            coinsDisplay.textContent = coins;
+
+            // Add event listeners
+            stressButton.addEventListener('click', handleStressClick);
+            harvestButton.addEventListener('click', harvestCrops);
+            resetButton.addEventListener('click', resetGame);
+            soundToggle.addEventListener('click', toggleSound);
+            
+            // Make sure the start button works
+            if (startTutorialButton) {
+                startTutorialButton.addEventListener('click', startGame);
+                console.log("Start button found and listener attached");
+            } else {
+                console.error("Start button not found!");
+            }
+            
+            // Crop selection event listeners
+            cropOptions.forEach(option => {
+                option.addEventListener('click', selectCrop);
+            });
+            
+            cropSelectButton.addEventListener('click', confirmCropSelection);
+
+            // Show crop selection overlay first
+            cropSelectionOverlay.style.display = 'flex';
+            console.log("Crop selection shown");
+        }
+
+        // Select crop
+        function selectCrop(e) {
+            // Remove previous selection
+            cropOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked crop
+            e.currentTarget.classList.add('selected');
+            selectedCrop = e.currentTarget.dataset.crop;
+            
+            // Enable select button
+            cropSelectButton.disabled = false;
+        }
+
+        // Confirm crop selection
+        function confirmCropSelection() {
+            if (!selectedCrop) return;
+            
+            // Hide crop selection
+            cropSelectionOverlay.style.display = 'none';
+            
+            // Show tutorial
+            tutorialOverlay.style.display = 'flex';
+            console.log("Tutorial shown after crop selection");
+        }
+
+        // Start game function
+        function startGame() {
+            console.log('Start game function called'); // Debug log
+            
+            if (tutorialOverlay) {
+                tutorialOverlay.style.display = 'none';
+                console.log("Tutorial hidden");
+            } else {
+                console.error("Tutorial overlay not found!");
+            }
+            
+            // Create paddy plants with selected crop type
+            for (let i = 0; i < 10; i++) {
+                const plant = document.createElement('div');
+                plant.className = `paddy-plant ${selectedCrop}`;
+                plant.style.left = `${10 + i * 9}%`;
+                paddyField.appendChild(plant);
+                paddyPlants.push(plant);
+            }
+            
+            // Start game
+            gameStartTime = Date.now();
+            playBackgroundMusic('watering');
+            updateGameLoop();
+            startBirdSpawning();
+            console.log('Game started with crop:', selectedCrop);
+        }
+
+        // Handle stress button click
+        function handleStressClick() {
+            if (gameComplete) return;
+            
+            const now = Date.now();
+            clickTimes.push(now);
+            
+            // Keep only clicks from the last second
+            clickTimes = clickTimes.filter(time => now - time < 1000);
+            
+            // Update total clicks
+            totalClicks++;
+            totalClicksDisplay.textContent = totalClicks;
+            
+            // Calculate click speed
+            const clickSpeed = clickTimes.length;
+            clickSpeedDisplay.textContent = clickSpeed;
+            
+            // Update background color based on stress level
+            updateBackgroundColor(clickSpeed);
+            
+            // Update stress level based on click speed
+            const stressIncrease = clickSpeed * (activePowerUps.speedBoost > 0 ? 1.5 : 1);
+            stressLevel = Math.min(100, stressLevel + stressIncrease);
+            stressLevelBar.style.width = `${stressLevel}%`;
+            
+            // Play sound
+            sounds.click();
+            
+            // Create visual effects
+            createFloatingHeart();
+            
+            // Update farmer expression based on stress level
+            updateFarmerExpression(stressLevel);
+            
+            // Update motor speed based on stress level
+            motorSpeed = Math.min(100, stressLevel * (activePowerUps.speedBoost > 0 ? 1.5 : 1));
+            motorSpeedDisplay.textContent = `Motor Speed: ${Math.round(motorSpeed)}%`;
+            
+            // Rotate motor blades based on speed
+            if (motorSpeed > 0) {
+                motorBlades.style.animationPlayState = 'running';
+                motorBlades.style.animationDuration = `${2 - (motorSpeed / 100) * 1.8}s`;
+            } else {
+                motorBlades.style.animationPlayState = 'paused';
+            }
+            
+            // Pump water based on motor speed
+            if (motorSpeed > 0) {
+                pumpWater();
+            }
+            
+            // Update status message based on stress level
+            updateStatusMessage(stressLevel);
+            
+            // Create stress emoji and comment
+            createStressReaction(stressLevel);
+            
+            // Randomly spawn power-ups during watering phase
+            if (growthStage === 0 && Math.random() < 0.02) {
+                spawnPowerUp();
+            }
+        }
+
+        // Update background color based on stress level (both sky and ground)
+        function updateBackgroundColor(stressLevel) {
+            const body = document.body;
+            let skyColor, groundColor;
+            
+            if (stressLevel < 20) {
+                skyColor = '#87CEEB'; // Light sky blue
+                groundColor = '#8B4513'; // Light brown
+            } else if (stressLevel < 40) {
+                skyColor = '#5DADE2'; // Medium blue
+                groundColor = '#A0522D'; // Medium brown
+            } else if (stressLevel < 60) {
+                skyColor = '#3498DB'; // Bright blue
+                groundColor = '#7B3F00'; // Dark brown
+            } else if (stressLevel < 80) {
+                skyColor = '#2874A6'; // Dark blue
+                groundColor = '#5D2F00'; // Very dark brown
+            } else {
+                skyColor = '#1B4F72'; // Very dark blue
+                groundColor = '#3E1F00'; // Almost black
+            }
+            
+            body.style.background = `linear-gradient(to bottom, ${skyColor} 0%, ${skyColor} 60%, ${groundColor} 60%, ${groundColor} 100%)`;
+        }
+
+        // Pump water
+        function pumpWater() {
+            const crop = cropProperties[selectedCrop];
+            const waterIncrease = (motorSpeed / 20) * (activePowerUps.waterBonus > 0 ? 1.5 : 1) / crop.waterNeed;
+            waterLevel = Math.min(100, waterLevel + waterIncrease);
+            waterLevelBar.style.height = `${waterLevel}%`;
+            waterPercentage.textContent = `Water: ${Math.round(waterLevel)}%`;
+            waterPumpedDisplay.textContent = Math.round(waterLevel);
+            
+            // Animate water flow
+            animateWaterFlow();
+            
+            // Update water coverage in field
+            waterCoverage.style.width = `${waterLevel}%`;
+            
+            // Play water sound
+            if (Math.random() < 0.1) {
+                sounds.water();
+            }
+            
+            // Update growth progress during watering phase
+            if (growthStage === 0) {
+                growthProgress = Math.min(100, growthProgress + waterIncrease / 5);
+                growthProgressBar.style.width = `${growthProgress}%`;
+                growthProgressBar.textContent = `${Math.round(growthProgress)}% - Watering Phase`;
+                
+                // Move to growing phase when water level is sufficient
+                if (waterLevel >= 80 && growthProgress >= 100) {
+                    startGrowingPhase();
+                }
+            }
+        }
+
+        // Animate water flow in pipe
+        function animateWaterFlow() {
+            const waterFlow = document.getElementById('waterFlow');
+            waterFlow.style.opacity = '1';
+            waterFlow.style.left = '0%';
+            
+            setTimeout(() => {
+                waterFlow.style.transition = 'left 1s linear';
+                waterFlow.style.left = '100%';
+            }, 10);
+            
+            setTimeout(() => {
+                waterFlow.style.transition = 'none';
+                waterFlow.style.opacity = '0';
+                waterFlow.style.left = '-20px';
+            }, 1010);
+        }
+
+        // Update farmer expression based on stress level
+        function updateFarmerExpression(level) {
+            // Blink eyes randomly
+            const now = Date.now();
+            if (now - lastBlinkTime > 3000 && Math.random() < 0.01) {
+                leftEye.classList.add('blink');
+                rightEye.classList.add('blink');
+                lastBlinkTime = now;
+                
+                setTimeout(() => {
+                    leftEye.classList.remove('blink');
+                    rightEye.classList.remove('blink');
+                }, 150);
+            }
+            
+            // Change mouth expression based on stress level
+            farmerMouth.classList.remove('happy', 'sad');
+            
+            if (level < 30) {
+                farmerMouth.classList.add('sad');
+            } else if (level > 70) {
+                farmerMouth.classList.add('happy');
+            }
+        }
+
+        // Create stress emoji and comment
+        function createStressReaction(level) {
+            // Clear previous emoji and comment
+            stressEmoji.textContent = '';
+            stressComment.textContent = '';
+            
+            // Set emoji based on stress level
+            let emoji = '';
+            let comment = '';
+            
+            if (level < 20) {
+                emoji = '😴';
+                const comments = [
+                    "Is this even working?",
+                    "I could nap right now...",
+                    "My plants are thirsty!",
+                    "Are you clicking or sleeping?"
+                ];
+                comment = comments[Math.floor(Math.random() * comments.length)];
+            } else if (level < 40) {
+                emoji = '😐';
+                const comments = [
+                    "Getting there... slowly.",
+                    "I've seen snails move faster.",
+                    "My grandma clicks faster than this!",
+                    "Click like you mean it!"
+                ];
+                comment = comments[Math.floor(Math.random() * comments.length)];
+            } else if (level < 60) {
+                emoji = '😊';
+                const comments = [
+                    "Now we're talking!",
+                    "Keep it up!",
+                    "The plants are feeling the love!",
+                    "That's more like it!"
+                ];
+                comment = comments[Math.floor(Math.random() * comments.length)];
+            } else if (level < 80) {
+                emoji = '😄';
+                const comments = [
+                    "Wow! You're on fire!",
+                    "My crops are dancing!",
+                    "Is your finger okay?",
+                    "Click master!"
+                ];
+                comment = comments[Math.floor(Math.random() * comments.length)];
+            } else {
+                emoji = '🤯';
+                const comments = [
+                    "INSANE CLICKING SPEED!",
+                    "My crops are growing as I watch!",
+                    "Are you part robot?",
+                    "CLICKING LEGEND!"
+                ];
+                comment = comments[Math.floor(Math.random() * comments.length)];
+            }
+            
+            // Only update if comment is different from last one
+            if (comment !== lastStressComment) {
+                stressEmoji.textContent = emoji;
+                stressComment.textContent = comment;
+                lastStressComment = comment;
+                
+                // Clear after a delay
+                setTimeout(() => {
+                    stressEmoji.textContent = '';
+                    stressComment.textContent = '';
+                }, 3000);
+            }
+        }
+
+        // Update status message based on stress level
+        function updateStatusMessage(level) {
+            statusMessage.classList.remove('success-message', 'harvest-message');
+            
+            if (level < 20) {
+                statusMessage.textContent = "Come on, click faster! The crops are thirsty!";
+            } else if (level < 40) {
+                statusMessage.textContent = "Better, but you can do more! Keep clicking!";
+            } else if (level < 60) {
+                statusMessage.textContent = "Great job! The water is flowing!";
+            } else if (level < 80) {
+                statusMessage.textContent = "Amazing! Your stress is powering the whole farm!";
+                statusMessage.classList.add('success-message');
+            } else {
+                statusMessage.textContent = "INCREDIBLE! You're a stress-to-water conversion master!";
+                statusMessage.classList.add('success-message');
+            }
+        }
+
+        // Create floating heart effect
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = ['❤️', '💚', '💙', '💛', '💜'][Math.floor(Math.random() * 5)];
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.bottom = '20%';
+            
+            heartsContainer.appendChild(heart);
+            
+            // Remove heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Start growing phase
+        function startGrowingPhase() {
+            growthStage = 1;
+            growthProgress = 0;
+            statusMessage.textContent = "Great! The field is watered. Now watch your crops grow!";
+            statusMessage.classList.remove('success-message');
+            
+            // Update soundtrack
+            soundtrackIndicator.textContent = '🎵 Growing Phase';
+            playBackgroundMusic('growing');
+            
+            // Start growing timer
+            const growingInterval = setInterval(() => {
+                if (growthStage !== 1) {
+                    clearInterval(growingInterval);
+                    return;
+                }
+                
+                // Increase growth progress based on crop type
+                const crop = cropProperties[selectedCrop];
+                growthProgress = Math.min(100, growthProgress + crop.growthRate);
+                growthProgressBar.style.width = `${growthProgress}%`;
+                growthProgressBar.textContent = `${Math.round(growthProgress)}% - Growing Phase`;
+                
+                // Update plant appearance based on growth progress
+                const plantIndex = Math.floor(growthProgress / 10);
+                for (let i = 0; i <= plantIndex && i < paddyPlants.length; i++) {
+                    if (growthProgress > 50) {
+                        paddyPlants[i].classList.add('mature');
+                    }
+                }
+                
+                // Spawn pests during growing phase
+                if (Math.random() < 0.05 && pests.length < 5 && activePowerUps.pestRepellent === 0) {
+                    spawnPest();
+                }
+                
+                // Move to mature phase when growth is complete
+                if (growthProgress >= 100) {
+                    clearInterval(growingInterval);
+                    startMaturePhase();
+                }
+            }, 100);
+        }
+
+        // Spawn pest
+        function spawnPest() {
+            const pest = document.createElement('div');
+            pest.className = 'pest';
+            pest.style.left = `${Math.random() * 90}%`;
+            pest.style.bottom = `${30 + Math.random() * 50}%`;
+            
+            // Add warning label
+            const warning = document.createElement('div');
+            warning.className = 'pest-warning';
+            warning.textContent = 'Click me!';
+            pest.appendChild(warning);
+            
+            paddyField.appendChild(pest);
+            pests.push(pest);
+            
+            // Add click event to eliminate pest
+            pest.addEventListener('click', () => {
+                eliminatePest(pest);
+            });
+            
+            // Move pest around
+            const moveInterval = setInterval(() => {
+                if (!pest.parentNode) {
+                    clearInterval(moveInterval);
+                    return;
+                }
+                
+                const newLeft = parseFloat(pest.style.left) + (Math.random() * 10 - 5);
+                const newBottom = parseFloat(pest.style.bottom) + (Math.random() * 10 - 5);
+                
+                pest.style.left = `${Math.max(0, Math.min(90, newLeft))}%`;
+                pest.style.bottom = `${Math.max(30, Math.min(80, newBottom))}%`;
+            }, 1000);
+            
+            // Remove pest after some time if not clicked
+            setTimeout(() => {
+                if (pest.parentNode) {
+                    // Pest damages crops
+                    createDamageEffect(pest);
+                    growthProgress = Math.max(0, growthProgress - 5);
+                    growthProgressBar.style.width = `${growthProgress}%`;
+                    
+                    // Remove pest
+                    pest.remove();
+                    pests = pests.filter(p => p !== pest);
+                    clearInterval(moveInterval);
+                }
+            }, 10000);
+        }
+
+        // Eliminate pest
+        function eliminatePest(pest) {
+            sounds.pest();
+            
+            // Create damage effect
+            createDamageEffect(pest);
+            
+            // Remove pest
+            pest.remove();
+            pests = pests.filter(p => p !== pest);
+            
+            // Add bonus to growth progress
+            growthProgress = Math.min(100, growthProgress + 2);
+            growthProgressBar.style.width = `${growthProgress}%`;
+            
+            // Create floating text
+            createFloatingText("+2 Growth!", pest.style.left, pest.style.bottom);
+            
+            // Chance to spawn coin
+            if (Math.random() < 0.3) {
+                createCoin(pest.style.left, pest.style.bottom);
+            }
+        }
+
+        // Create damage effect
+        function createDamageEffect(element) {
+            const effect = document.createElement('div');
+            effect.className = 'damage-effect';
+            effect.style.left = element.style.left;
+            effect.style.bottom = element.style.bottom;
+            
+            paddyField.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 500);
+        }
+
+        // Create floating text
+        function createFloatingText(text, left, bottom) {
+            const floatingText = document.createElement('div');
+            floatingText.className = 'mysterious-text';
+            floatingText.textContent = text;
+            floatingText.style.left = left;
+            floatingText.style.bottom = `${parseFloat(bottom) + 20}%`;
+            
+            paddyField.appendChild(floatingText);
+            
+            setTimeout(() => {
+                floatingText.remove();
+            }, 4000);
+        }
+
+        // Create coin
+        function createCoin(left, bottom) {
+            const coin = document.createElement('div');
+            coin.className = 'flying-object';
+            coin.textContent = '🪙';
+            coin.style.left = left;
+            coin.style.bottom = bottom;
+            
+            paddyField.appendChild(coin);
+            
+            // Update coins after animation
+            setTimeout(() => {
+                coins++;
+                coinsDisplay.textContent = coins;
+                localStorage.setItem('irrigationCoins', coins);
+                coin.remove();
+            }, 5000);
+        }
+
+        // Spawn power-up
+        function spawnPowerUp() {
+            const types = ['speed-boost', 'water-bonus', 'pest-repellent'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            
+            const powerUp = document.createElement('div');
+            powerUp.className = `power-up ${type}`;
+            powerUp.style.left = `${Math.random() * 90}%`;
+            powerUp.style.bottom = `${10 + Math.random() * 20}%`;
+            
+            // Add icon based on type
+            const icon = document.createElement('div');
+            icon.style.position = 'absolute';
+            icon.style.top = '50%';
+            icon.style.left = '50%';
+            icon.style.transform = 'translate(-50%, -50%)';
+            icon.style.fontSize = '1.5rem';
+            
+            switch(type) {
+                case 'speed-boost':
+                    icon.textContent = '⚡';
+                    break;
+                case 'water-bonus':
+                    icon.textContent = '💧';
+                    break;
+                case 'pest-repellent':
+                    icon.textContent = '🛡️';
+                    break;
+            }
+            
+            powerUp.appendChild(icon);
+            paddyField.appendChild(powerUp);
+            powerUps.push(powerUp);
+            
+            // Add click event
+            powerUp.addEventListener('click', () => {
+                activatePowerUp(type, powerUp);
+            });
+            
+            // Remove after some time if not collected
+            setTimeout(() => {
+                if (powerUp.parentNode) {
+                    powerUp.remove();
+                    powerUps = powerUps.filter(p => p !== powerUp);
+                }
+            }, 10000);
+        }
+
+        // Activate power-up
+        function activatePowerUp(type, powerUp) {
+            sounds.powerUp();
+            
+            // Remove power-up from field
+            powerUp.remove();
+            powerUps = powerUps.filter(p => p !== powerUp);
+            
+            // Set active power-up
+            activePowerUps[type] = 10; // 10 seconds
+            
+            // Create floating text
+            createFloatingText(`${type.replace('-', ' ').toUpperCase()} ACTIVATED!`, powerUp.style.left, powerUp.style.bottom);
+            
+            // Create timer display
+            const timerDisplay = document.createElement('div');
+            timerDisplay.className = 'power-up-timer';
+            timerDisplay.textContent = `${type.replace('-', ' ')}: 10s`;
+            document.body.appendChild(timerDisplay);
+            
+            // Clear existing timer if any
+            if (powerUpTimers[type]) {
+                clearInterval(powerUpTimers[type]);
+            }
+            
+            // Start countdown
+            powerUpTimers[type] = setInterval(() => {
+                activePowerUps[type]--;
+                timerDisplay.textContent = `${type.replace('-', ' ')}: ${activePowerUps[type]}s`;
+                
+                if (activePowerUps[type] <= 0) {
+                    clearInterval(powerUpTimers[type]);
+                    timerDisplay.remove();
+                }
+            }, 1000);
+        }
+
+        // Start mature phase
+        function startMaturePhase() {
+            growthStage = 2;
+            statusMessage.textContent = "Your crops are mature and ready to harvest! Click the Harvest button!";
+            statusMessage.classList.add('harvest-message');
+            
+            // Update soundtrack
+            soundtrackIndicator.textContent = '🎵 Mature Phase';
+            playBackgroundMusic('mature');
+            
+            // Update all plants to mature
+            paddyPlants.forEach(plant => {
+                plant.classList.add('mature');
+            });
+            
+            // Show harvest button
+            harvestButton.style.display = 'block';
+            
+            // Create achievement popup
+            showAchievement("Crops Matured!", "Your patience and stress have paid off!");
+        }
+
+        // Harvest crops
+        function harvestCrops() {
+            if (growthStage !== 2) return;
+            
+            sounds.harvest();
+            
+            growthStage = 3;
+            harvestCount++;
+            
+            // Update soundtrack
+            soundtrackIndicator.textContent = '🎵 Harvest Phase';
+            playBackgroundMusic('harvest');
+            
+            // Update plants to harvested state
+            paddyPlants.forEach(plant => {
+                plant.classList.remove('mature');
+                plant.classList.add('harvested');
+            });
+            
+            // Show farmer basket with rice grains
+            farmerBasket.style.display = 'block';
+            
+            // Add rice grains to basket
+            for (let i = 0; i < 10; i++) {
+                const grain = document.createElement('div');
+                grain.className = 'rice-grain';
+                grain.style.left = `${10 + Math.random() * 80}%`;
+                grain.style.top = `${10 + Math.random() * 60}%`;
+                farmerBasket.appendChild(grain);
+            }
+            
+            // Calculate score based on crop type
+            const crop = cropProperties[selectedCrop];
+            const timeElapsed = Math.round((Date.now() - gameStartTime) / 1000);
+            const score = Math.round((10000 / (timeElapsed + 1)) * (1 + harvestCount * 0.5) * crop.value);
+            
+            // Update high score if needed
+            if (score > highScore) {
+                highScore = score;
+                highScoreDisplay.textContent = highScore;
+                localStorage.setItem('irrigationHighScore', highScore);
+                showAchievement("New High Score!", `${score} points - You're a farming legend!`);
+            }
+            
+            // Award coins based on crop type
+            const earnedCoins = Math.floor((5 + harvestCount * 2.5) * crop.value);
+            coins += earnedCoins;
+            coinsDisplay.textContent = coins;
+            localStorage.setItem('irrigationCoins', coins);
+            
+            // Update status message
+            statusMessage.textContent = `Harvest complete! You earned ${earnedCoins} coins and ${score} points!`;
+            statusMessage.classList.remove('harvest-message');
+            statusMessage.classList.add('success-message');
+            
+            // Hide harvest button and show reset button
+            harvestButton.style.display = 'none';
+            resetButton.style.display = 'block';
+            
+            // Create celebration effects
+            createCelebration();
+            
+            // Game complete
+            gameComplete = true;
+        }
+
+        // Create celebration effects
+        function createCelebration() {
+            // Create multiple color bursts
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const burst = document.createElement('div');
+                    burst.className = 'color-burst';
+                    burst.style.left = `${Math.random() * 100}%`;
+                    burst.style.top = `${Math.random() * 100}%`;
+                    burst.style.background = `radial-gradient(circle, ${getRandomColor()}, transparent)`;
+                    
+                    document.body.appendChild(burst);
+                    
+                    setTimeout(() => {
+                        burst.remove();
+                    }, 1000);
+                }, i * 200);
+            }
+            
+            // Create flying rice grains
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const rice = document.createElement('div');
+                    rice.className = 'flying-object';
+                    rice.textContent = '🌾';
+                    rice.style.left = '-5%';
+                    rice.style.top = `${Math.random() * 100}%`;
+                    
+                    document.body.appendChild(rice);
+                    
+                    setTimeout(() => {
+                        rice.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        // Get random color
+        function getRandomColor() {
+            const colors = ['#FF5722', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Show achievement popup
+        function showAchievement(title, message) {
+            achievementPopup.textContent = `${title} ${message}`;
+            achievementPopup.style.display = 'block';
+            sounds.achievement();
+            
+            setTimeout(() => {
+                achievementPopup.style.display = 'none';
+            }, 3000);
+        }
+
+        // Reset game
+        function resetGame() {
+            // Reset game state
+            stressLevel = 0;
+            waterLevel = 0;
+            motorSpeed = 0;
+            growthStage = 0;
+            gameComplete = false;
+            clickTimes = [];
+            totalClicks = 0;
+            gameStartTime = Date.now();
+            growthProgress = 0;
+            selectedCrop = null;
+            
+            // Reset UI elements
+            stressLevelBar.style.width = '0%';
+            waterLevelBar.style.height = '0%';
+            waterPercentage.textContent = 'Water: 0%';
+            motorBlades.style.animationPlayState = 'paused';
+            motorSpeedDisplay.textContent = 'Motor Speed: 0%';
+            waterCoverage.style.width = '0%';
+            statusMessage.textContent = 'Click rapidly to power the water pump and irrigate the field!';
+            statusMessage.classList.remove('success-message', 'harvest-message');
+            totalClicksDisplay.textContent = '0';
+            clickSpeedDisplay.textContent = '0';
+            waterPumpedDisplay.textContent = '0';
+            timeElapsedDisplay.textContent = '0';
+            growthProgressBar.style.width = '0%';
+            growthProgressBar.textContent = '0% - Watering Phase';
+            
+            // Reset farmer
+            farmerMouth.classList.remove('happy', 'sad');
+            farmerBasket.style.display = 'none';
+            farmerBasket.innerHTML = '';
+            stressEmoji.textContent = '';
+            stressComment.textContent = '';
+            
+            // Clear plants
+            paddyPlants.forEach(plant => plant.remove());
+            paddyPlants = [];
+            
+            // Clear pests and power-ups
+            pests.forEach(pest => pest.remove());
+            pests = [];
+            powerUps.forEach(powerUp => powerUp.remove());
+            powerUps = [];
+            
+            // Clear power-up timers
+            Object.values(powerUpTimers).forEach(timer => clearInterval(timer));
+            powerUpTimers = {};
+            
+            // Reset active power-ups
+            activePowerUps = {
+                speedBoost: 0,
+                waterBonus: 0,
+                pestRepellent: 0
+            };
+            
+            // Remove any power-up timer displays
+            document.querySelectorAll('.power-up-timer').forEach(timer => timer.remove());
+            
+            // Reset buttons
+            harvestButton.style.display = 'none';
+            resetButton.style.display = 'none';
+            
+            // Reset soundtrack
+            soundtrackIndicator.textContent = '🎵 Watering Phase';
+            
+            // Reset background color
+            updateBackgroundColor(0);
+            
+            // Show crop selection again for the next game
+            cropSelectionOverlay.style.display = 'flex';
+            cropSelectButton.disabled = true;
+            cropOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        // Update game loop
+        function updateGameLoop() {
+            // Update time elapsed
+            const timeElapsed = Math.round((Date.now() - gameStartTime) / 1000);
+            timeElapsedDisplay.textContent = timeElapsed;
+
+            if (!gameComplete) {
+                requestAnimationFrame(updateGameLoop);
+            }
+        }
+
+        // Sound toggle
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+            
+            // Toggle background music
+            if (window.backgroundMusic) {
+                if (soundEnabled) {
+                    window.backgroundMusic.play().catch(e => console.log("Audio play failed:", e));
+                } else {
+                    window.backgroundMusic.pause();
+                }
+            }
+        }
+
+        // Start bird spawning
+        function startBirdSpawning() {
+            // Spawn initial birds
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => spawnBird(), i * 3000);
+            }
+            
+            // Continue spawning birds periodically
+            setInterval(() => {
+                if (!gameComplete && Math.random() < 0.3) {
+                    spawnBird();
+                }
+            }, 8000);
+        }
+
+        // Spawn a bird
+        function spawnBird() {
+            const bird = document.createElement('div');
+            bird.className = 'bird';
+            
+            // Random bird type
+            const birdTypes = ['🐦', '🕊️', '🦅', '🦆', '🦢'];
+            bird.textContent = birdTypes[Math.floor(Math.random() * birdTypes.length)];
+            
+            // Random starting position
+            bird.style.top = `${5 + Math.random() * 15}%`;
+            
+            document.body.appendChild(bird);
+            
+            // Remove bird after animation
+            setTimeout(() => {
+                bird.remove();
+            }, 15000);
+        }
+
+        // Alternative way to ensure the game initializes
+        window.addEventListener('load', function() {
+            console.log("Window loaded, initializing game");
+            initializeGame();
+        });
+
+        // Also try DOMContentLoaded as a fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM content loaded, initializing game");
+            initializeGame();
+        });
+
+        // Initialize game immediately if DOM is already loaded
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            console.log("DOM already loaded, initializing game immediately");
+            initializeGame();
+        }
+    </script>
+</body>
+</html>
